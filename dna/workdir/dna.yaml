@@ -11,4 +11,4 @@ coordinator:
     - name: zPerfTesting
       bundled: ../../target/wasm32-unknown-unknown/release/perf_testing_zome.wasm
       dependencies:
-        - name: threads_integrity
+        - name: perf_testing_integrity

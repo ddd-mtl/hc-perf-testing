@@ -1,7 +1,8 @@
 [workspace]
 members = [
   "dna/zomes/perf_testing_integrity",
-  "dna/zomes/perf_testing"
+  "dna/zomes/perf_testing",
+  "sweettest",
   ]
 
 [workspace.package]
@@ -11,8 +12,8 @@ edition = "2021"
 
 [workspace.dependencies]
 serde = { version = "1.0", default-features = false }
-hdi = { version = "=0.2.2", default-features = false }
-hdk = { version = "=0.1.2", default-features = false }
+hdi = { version = "=0.2.1", default-features = false }
+hdk = { version = "=0.1.1", default-features = false }
 
 
 [profile.dev]
