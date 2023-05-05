@@ -3,7 +3,7 @@
 #[cfg(not(target_arch = "wasm32"))]
 pub mod test;
 
-pub const DNA_FILEPATH: &str = "../../artifacts/perf_testing.dna";
+pub const DNA_FILEPATH: &str = "artifacts/perf_testing.dna";
 
 #[cfg(not(target_arch = "wasm32"))]
 #[tokio::main(flavor = "multi_thread")]

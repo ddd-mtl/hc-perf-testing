@@ -27,14 +27,20 @@ pub async fn test(arg: String) {
    // if arg == "all" || arg == "enc" {
    //    test_encryption().await;
    // }
-   // // Handle
-   // if arg == "all" || arg == "handle" {
-   //    test_handle().await;
-   // }
-   // // Mail self
-   // if arg == "all" || arg == "self" {
-   //    test_mail_self().await;
-   // }
+   // Handle
+   if arg == "all" || arg == "handle" {
+      test_handle().await;
+   }
+   // 10
+   if arg == "all" || arg == "10" {
+      test_many_handle(10).await;
+   }
+
+   // 100
+   if arg == "all" || arg == "100" {
+      test_many_handle(100).await;
+   }
+
    // // Mail via DM
    // if arg == "all" || arg == "mail" {
    //    test_mail_dm().await;
@@ -115,47 +121,30 @@ pub async fn test_handle() {
    let (conductor, _alex, cell1) = setup_1_conductor(DNA_FILEPATH).await;
 
    let name = format!("{}-{}", "alex", 1);
-   let ah1: ActionHash = conductor.call(&cell1.zome("perf_testing"), "set_handle", name.to_string()).await;
+   let ah1: ActionHash = conductor.call(&cell1.zome("zPerfTesting"), "add_handle", name.to_string()).await;
    println!("ah1: {:?}", ah1);
    //tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
-   let handle: String = conductor.call(&cell1.zome("perf_testing"), "get_handle", ah1).await;
+   let handle: String = conductor.call(&cell1.zome("zPerfTesting"), "get_handle", ah1).await;
    println!("handle: {:?}", handle);
    assert_eq!(name, handle);
+}
 
-   // let name = "bobby";
-   // let _handle_address2: ActionHash = conductor.call(&cell1.zome("perf_testing"), "set_handle", name.to_string()).await;
-   // let handle: String = conductor.call(&cell1.zome("perf_testing"), "get_my_handle", ()).await;
-   // println!("handle: {:?}", handle);
-   // assert_eq!(name, handle);
-   //
-   // //print_chain(&conductor, &alex, &cell1).await;
-   //
-   // let handle_list: Vec<HandleItem> = conductor.call(&cell1.zome("perf_testing"), "get_all_handles", ()).await;
-   // assert_eq!(1, handle_list.len());
-   // assert_eq!(name, handle_list[0].username);
-   //
-   // let name = "camille";
-   // let _handle_address3: ActionHash = conductor.call(&cell1.zome("perf_testing"), "set_handle", name.to_string()).await;
-   //
-   // let mut handle = String::new();
-   // for _ in 0..3u32 {
-   //    handle = conductor.call(&cell1.zome("perf_testing"), "get_my_handle", ()).await;
-   //    println!("handle: {:?}", handle);
-   //    if name == handle {
-   //       break;
-   //    }
-   // }
-   // assert_eq!(name, handle);
-   //
-   // for _ in 0..3u32 {
-   //    let handle_list: Vec<HandleItem> = conductor.call(&cell1.zome("perf_testing"), "get_all_handles", ()).await;
-   //    assert_eq!(1, handle_list.len());
-   //    handle = handle_list[0].username.clone();
-   //    println!("handle_list: {:?}", handle_list);
-   //    if name == handle {
-   //       break;
-   //    }
-   // }
-   // assert_eq!(name, handle);
+///
+pub async fn test_many_handle(n: usize) {
+   let (conductor, _alex, cell1) = setup_1_conductor(DNA_FILEPATH).await;
+
+   let mut ahs = Vec::new();
+   
+   // set N handles
+   for i in 0..n {
+      let name = format!("{}-{}", "alex", i);
+      let ah: ActionHash = conductor.call(&cell1.zome("zPerfTesting"), "add_handle", name.to_string()).await;
+      ahs.push(ah);
+   }
+
+   // Do some gets
+   for _ in 0..10u32 {
+      let _handle: String = conductor.call(&cell1.zome("zPerfTesting"), "get_handle", ahs[0].clone()).await;
+   }
 }
 

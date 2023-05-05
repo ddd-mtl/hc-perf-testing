@@ -23,4 +23,5 @@ overflow-checks = false
 
 [profile.release]
 opt-level = "z"
-lto = true
+#lto = true
+lto = false
