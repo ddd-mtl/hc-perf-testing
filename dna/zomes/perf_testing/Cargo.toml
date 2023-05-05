@@ -10,7 +10,6 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 serde.workspace = true
 hdk.workspace = true
-zome_utils.workspace = true
 
 perf_testing_integrity = { package = "perf_testing_integrity_zome", path = "../perf_testing_integrity" }
 chrono = { version = "0.4.22", default-features = false, features = ["clock", "std", "oldtime", "serde"] }

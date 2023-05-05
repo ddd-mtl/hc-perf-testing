@@ -4,14 +4,10 @@
 #![allow(non_snake_case)]
 #![allow(unused_attributes)]
 
+
 //--------------------------------------------------------------------------------------------------
 
 use hdi::prelude::*;
-use hdi::prelude::holo_hash::hash_type;
-
-pub use beads::*;
-pub use query_log::*;
-pub use globals::*;
 
 
 #[hdk_entry_defs]
@@ -37,26 +33,26 @@ pub enum PerfTestingLinkType {
 #[hdk_entry_helper]
 #[derive(Clone, PartialEq)]
 pub struct Handle {
-    pub username: String,
+    pub value: String,
 }
 
 impl Handle {
     pub fn new(name: String) -> Self {
         Self {
-            username: name,
+            value: name,
         }
     }
 
     pub fn empty() -> Self {
         Self {
-            username: String::new(),
+            value: String::new(),
         }
     }
 
     /// DEBUG
     pub fn dummy() -> Self {
         Self {
-            username: "dummy".to_string(),
+            value: "dummy".to_string(),
         }
     }
 }
