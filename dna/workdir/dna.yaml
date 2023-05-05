@@ -1,0 +1,14 @@
+---
+manifest_version: "1"
+name: dPerfTesting
+integrity:
+  origin_time: 2022-09-25T13:55:49.200Z
+  zomes:
+    - name: perf_testing_integrity
+      bundled: ../../target/wasm32-unknown-unknown/release/perf_testing_integrity_zome.wasm
+coordinator:
+  zomes:
+    - name: zPerfTesting
+      bundled: ../../target/wasm32-unknown-unknown/release/perf_testing_zome.wasm
+      dependencies:
+        - name: threads_integrity
